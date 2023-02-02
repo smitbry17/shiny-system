@@ -1,52 +1,51 @@
-const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const router = require("express").Router();
+const { Category, Product } = require("../../models");
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   Category.findAll({
-    include: [Product]
+    include: [Product],
   })
-  .then((categories) => res.json(categories))
-  .catch((err) => res.status(500).json(err))
-  });
+    .then((categories) => res.json(categories))
+    .catch((err) => res.status(500).json(err));
+});
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   Category.findOne({
     where: {
-    id: req.params.id
+      id: req.params.id,
     },
-    include: [Product]
+    include: [Product],
   })
-  .then((category) => res.json(category))
-  .catch((err) => res.status(500).json)
+    .then((category) => res.json(category))
+    .catch((err) => res.status(500).json);
 });
 
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   Category.create(req.body)
-  .then((category) => res.status(200).json(category))
-  .catch((err) => res.status(500).json(err))
+    .then((category) => res.status(200).json(category))
+    .catch((err) => res.status(500).json(err));
 });
 
-router.put('/:id', (req, res) => {
-  Category.update(req.body,{
+router.put("/:id", (req, res) => {
+  Category.update(req.body, {
     where: {
-      _id: req.params.id
-    }
-  }
-  )
-  .then((category) => res.status(200).json(category))
-  .catch((err) => res.status(500).json(err))
-});
-
-router.delete('/:id', (req, res) => {
-  Category.delete(req.body, {
-    where: {
-      _id: req.params.id
-    }
+      _id: req.params.id,
+    },
   })
-  .then((category) => res.status(200).json(category))
-  .catch((err) => res.status(500).json(err))
+    .then((category) => res.status(200).json(category))
+    .catch((err) => res.status(500).json(err));
+});
+
+router.delete("/:id", (req, res) => {
+  Category.destroy(req.body, {
+    where: {
+      _id: req.params.id,
+    },
+  })
+    .then((category) => res.status(200).json(category))
+    .catch((err) => res.status(500).json(err));
 });
 
 module.exports = router;
