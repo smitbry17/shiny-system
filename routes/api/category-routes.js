@@ -31,7 +31,7 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   Category.update(req.body, {
     where: {
-      _id: req.params.id,
+      id: req.params.id,
     },
   })
     .then((category) => res.status(200).json(category))
